@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "id": "donutpay",
+  "version": "${version}",
+  "name": "DonutPay Tracker",
+  "description": "Client-side incoming payment tracker for DonutSMP. Reads only real server messages. Never sends payments or touches credentials.",
+  "authors": ["DILLYY_MC"],
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": { "client": ["com.dilly.donutpay.DonutPayClient"] },
+  "depends": {
+    "fabricloader": ">=0.18.1",
+    "minecraft": "~1.21.11",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}
