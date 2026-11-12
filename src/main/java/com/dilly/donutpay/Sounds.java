@@ -2,8 +2,10 @@ package com.dilly.donutpay;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.sound.PositionedSoundInstance;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.random.Random;
 
 public final class Sounds {
     public static final String[] PRESETS = {
@@ -20,9 +22,12 @@ public final class Sounds {
 
     public static void play(String id, float volume, float pitch) {
         Identifier ident = Identifier.tryParse(id);
-        if (ident == null) return;
-        MinecraftClient.getInstance().getSoundManager()
-            .play(PositionedSoundInstance.master(SoundEvent.of(ident), pitch, volume));
+        MinecraftClient mc = MinecraftClient.getInstance();
+        if (ident == null || mc.player == null) return;
+        // Played at the player's own position so it is always heard at full volume.
+        mc.getSoundManager().play(new PositionedSoundInstance(
+            SoundEvent.of(ident), SoundCategory.MASTER, volume, pitch, Random.create(),
+            mc.player.getX(), mc.player.getY(), mc.player.getZ()));
     }
 
     public static String shortName(String id) {
